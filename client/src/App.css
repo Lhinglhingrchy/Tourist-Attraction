@@ -1,42 +1,133 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+@import url("https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Prompt", sans-serif;
+}
+
+.app {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.trip-header {
+  color: #2e9bdb;
+  padding: 20px 0px;
+}
+
+/* search */
+.search-container {
+  /* border: solid 1px; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.search-container form label,
+.search-container form input {
+  width: 85%;
+  align-self: center;
+}
+
+.search-container form label {
+  font-size: 17px;
+}
+
+.search-container form input {
+  height: 35px;
+  border: none;
+  border-bottom: 1px solid #d0d0d0;
+  padding: 5px;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+}
+
+.search-container form input::placeholder {
   text-align: center;
+  font-size: 15px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* trip */
+.trip-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.trip-article {
+  width: 90%;
+  /* border: solid 1px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.trip-preview img {
+  width: 100%;
+  border-radius: 15px;
 }
 
-.card {
-  padding: 2em;
+.trip-detail {
+  /* border: solid 1px red; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.read-the-docs {
-  color: #888;
+.trip-title {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.trip-description,
+.trip-tag {
+  font-size: 15px;
+}
+
+.trip-more {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid;
+  width: 100%;
+  height: 50%;
+  object-fit: fill;
+}
+
+.trip-more {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.square {
+  flex: 1 1 30%; /* ขยายตามความกว้าง แต่ไม่เล็กเกินไป */
+  aspect-ratio: 1 / 1; /* CSS modern ทำสี่เหลี่ยมจัตุรัสง่ายมาก */
+  overflow: hidden;
+}
+
+.square img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
