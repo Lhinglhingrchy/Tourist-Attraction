@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
+  // get trips state
   const [tripArticle, setTripArticle] = useState([]);
 
   const getTrips = async () => {
@@ -12,13 +13,48 @@ function App() {
   useEffect(() => {
     getTrips();
   }, []);
+
+  // input state
+  const [search, setSearch] = useState("");
+
+  const handleOnChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const [query, setQuery] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setQuery(search);
+  };
+  const getTripsByKeywords = async () => {
+    const response = await axios.get(
+      `http://localhost:4001/trips?keywords=${query}`
+    );
+    setTripArticle(response.data.data);
+    setSearch("");
+  };
+  useEffect(() => {
+    if (query !== "") {
+      getTripsByKeywords();
+    } else {
+      getTrips();
+    }
+  }, [query]);
+
   return (
     <div className="app">
       <h1 className="trip-header">เที่ยวไหนดี</h1>
       <div className="search-container">
-        <form>
+        <form onSubmit={handleSubmit}>
           <label>ค้นหาที่เที่ยว</label>
-          <input type="text" placeholder="หาที่เที่ยวแล้วไปกัน ..." />
+          <input
+            type="text"
+            placeholder="หาที่เที่ยวแล้วไปกัน ..."
+            name="keywords"
+            value={search}
+            onChange={handleOnChange}
+          />
         </form>
       </div>
       <div className="trip-list">
@@ -38,8 +74,8 @@ function App() {
                 </div>
                 <div className="trip-tag">
                   หมวด{" "}
-                  {trip.tags.map((tag) => {
-                    return <span>{tag}</span>;
+                  {trip.tags.map((tag, i) => {
+                    return <span key={i}>{tag}</span>;
                   })}
                 </div>
                 <div className="trip-more">
