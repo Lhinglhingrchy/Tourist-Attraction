@@ -1,6 +1,18 @@
 import "./App.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
+  const [tripArticle, setTripArticle] = useState([]);
+
+  const getTrips = async () => {
+    const response = await axios.get("http://localhost:4001/trips?keywords=");
+    // console.log(response);
+    setTripArticle(response.data.data);
+  };
+  useEffect(() => {
+    getTrips();
+  }, []);
   return (
     <div className="app">
       <h1 className="trip-header">เที่ยวไหนดี</h1>
@@ -20,7 +32,7 @@ function App() {
               คู่มือเที่ยวเกาะช้าง กิน เที่ยว พักที่ไหนดี? อ่านจบครบที่เดียว!
             </div>
             <div className="trip-description">
-              "วันว่างนี้ไปเที่ยวเกาะช้างกัน พร้อมทำกิจกรรมต่าง ๆ เช่น
+              วันว่างนี้ไปเที่ยวเกาะช้างกัน พร้อมทำกิจกรรมต่าง ๆ เช่น
               เที่ยวน้ำตก ล่องเรือชมป่าชายเลน ขี่ช้างท่องป่า ผจญภัยเหนือยอดไม้
               และดำน้ำตื้น รับรอทริปนี้สนุกแน่!{" "}
               <a href="https://www.wongnai.com/trips/travel-koh-chang">
