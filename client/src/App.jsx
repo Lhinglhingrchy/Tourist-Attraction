@@ -7,7 +7,6 @@ function App() {
 
   const getTrips = async () => {
     const response = await axios.get("http://localhost:4001/trips?keywords=");
-    // console.log(response);
     setTripArticle(response.data.data);
   };
   useEffect(() => {
@@ -23,47 +22,41 @@ function App() {
         </form>
       </div>
       <div className="trip-list">
-        <div className="trip-article">
-          <div className="trip-preview">
-            <img src="https://img.wongnai.com/p/1600x0/2019/07/02/3c758646aa6c426ba3c6a81f57b20bd6.jpg" />
-          </div>
-          <div className="trip-detail">
-            <div className="trip-title">
-              คู่มือเที่ยวเกาะช้าง กิน เที่ยว พักที่ไหนดี? อ่านจบครบที่เดียว!
-            </div>
-            <div className="trip-description">
-              วันว่างนี้ไปเที่ยวเกาะช้างกัน พร้อมทำกิจกรรมต่าง ๆ เช่น
-              เที่ยวน้ำตก ล่องเรือชมป่าชายเลน ขี่ช้างท่องป่า ผจญภัยเหนือยอดไม้
-              และดำน้ำตื้น รับรอทริปนี้สนุกแน่!{" "}
-              <a href="https://www.wongnai.com/trips/travel-koh-chang">
-                อ่านต่อ
-              </a>
-            </div>
-            <div className="trip-tag">
-              หมวด "เกาะ", "ทะเล", "จุดชมวิว", "ธรรมชาติ", "ตราด"
-            </div>
-            <div className="trip-more">
-              <div className="square">
-                <img
-                  src="https://img.wongnai.com/p/1600x0/2019/07/02/6a2733ab91164ac8943b77deb14fdbde.jpg"
-                  alt="more"
-                />
+        {tripArticle.map((trip) => {
+          return (
+            <div className="trip-article" key={trip.eid}>
+              <div className="trip-preview">
+                <img src={trip.photos[0]} />
               </div>
-              <div className="square">
-                <img
-                  src="https://img.wongnai.com/p/1600x0/2019/07/02/6a2733ab91164ac8943b77deb14fdbde.jpg"
-                  alt="more"
-                />
-              </div>
-              <div className="square">
-                <img
-                  src="https://img.wongnai.com/p/1600x0/2019/07/02/6a2733ab91164ac8943b77deb14fdbde.jpg"
-                  alt="more"
-                />
+              <div className="trip-detail">
+                <div className="trip-title">{trip.title}</div>
+                <div className="trip-description">
+                  {trip.description.slice(0, 101)}...{" "}
+                  <a href="https://www.wongnai.com/trips/travel-koh-chang">
+                    อ่านต่อ
+                  </a>
+                </div>
+                <div className="trip-tag">
+                  หมวด{" "}
+                  {trip.tags.map((tag) => {
+                    return <span>{tag}</span>;
+                  })}
+                </div>
+                <div className="trip-more">
+                  <div className="square">
+                    <img src={trip.photos[1]} alt="more" />
+                  </div>
+                  <div className="square">
+                    <img src={trip.photos[2]} alt="more" />
+                  </div>
+                  <div className="square">
+                    <img src={trip.photos[3]} alt="more" />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </div>
   );
