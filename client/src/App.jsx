@@ -5,7 +5,10 @@ import axios from "axios";
 function App() {
   // get trips state
   const [tripArticle, setTripArticle] = useState([]);
+  // input state
+  const [search, setSearch] = useState("");
 
+  // get data from server
   const getTrips = async () => {
     const response = await axios.get("http://localhost:4001/trips?keywords=");
     setTripArticle(response.data.data);
@@ -14,33 +17,24 @@ function App() {
     getTrips();
   }, []);
 
-  // input state
-  const [search, setSearch] = useState("");
-
+  // input
   const handleOnChange = (e) => {
     setSearch(e.target.value);
   };
 
-  const [query, setQuery] = useState("");
-
+  // for search
   const handleSubmit = (e) => {
     e.preventDefault();
-    setQuery(search);
+    getTripsByKeywords();
   };
+
+  // get data by keywords
   const getTripsByKeywords = async () => {
     const response = await axios.get(
-      `http://localhost:4001/trips?keywords=${query}`
+      `http://localhost:4001/trips?keywords=${search}`
     );
     setTripArticle(response.data.data);
-    setSearch("");
   };
-  useEffect(() => {
-    if (query !== "") {
-      getTripsByKeywords();
-    } else {
-      getTrips();
-    }
-  }, [query]);
 
   return (
     <div className="app">
@@ -74,9 +68,10 @@ function App() {
                 </div>
                 <div className="trip-tag">
                   หมวด{" "}
-                  {trip.tags.map((tag, i) => {
+                  {trip.tags.slice(0, -1).map((tag, i) => {
                     return <span key={i}>{tag}</span>;
                   })}
+                  และ <span>{trip.tags[trip.tags.length - 1]}</span>
                 </div>
                 <div className="trip-more">
                   <div className="square">
